@@ -62,13 +62,14 @@ body {
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: radial-gradient(
+  /* background: radial-gradient(
     circle at 30% 30%,
     #c8d5ea 0%,
     #dfe8f6 45%,
     #f4f7ff 100%
-  );
-  border: 2px solid #6fa1ff;
+  ); */
+  background: rgba(255, 255, 255, 0.25);
+  /* border: 2px solid #6fa1ff; */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
   z-index: 6;
   display: grid;
@@ -82,13 +83,33 @@ body {
 
 .compass-needle {
   position: absolute;
-  width: 6px;
-  height: 70%;
-  border-radius: 999px;
-  background: linear-gradient(to top, #2f7cff 0 50%, #e84b4b 50% 100%);
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.35);
+  width: 0;
+  height: 0;
   transform: rotate(0deg);
   transform-origin: center center;
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.35));
+}
+
+.compass-needle::before,
+.compass-needle::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+}
+
+.compass-needle::before {
+  top: -18px;
+  border-bottom: 22px solid #e84b4b;
+}
+
+.compass-needle::after {
+  top: 2px;
+  border-top: 22px solid #f5f6fa;
 }
 
 .compass-center {
