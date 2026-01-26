@@ -241,61 +241,70 @@ const initMap = () => {
     findNearestPanorama(event.latLng);
   });
 
-  window.addEventListener("keydown", (event) => {
-    const target = event.target;
-    const tagName = target?.tagName?.toLowerCase();
-    if (
-      tagName === "input" ||
-      tagName === "textarea" ||
-      target?.isContentEditable
-    ) {
-      return;
-    }
-
-    const key = event.key.toLowerCase();
-
-    if (key === "n") {
-      if (!state.panorama || !state.panorama.getVisible()) {
+  window.addEventListener(
+    "keydown",
+    (event) => {
+      const target = event.target;
+      const tagName = target?.tagName?.toLowerCase();
+      if (
+        tagName === "input" ||
+        tagName === "textarea" ||
+        target?.isContentEditable
+      ) {
         return;
       }
-      state.panorama.setPov({ heading: 0, pitch: -90, zoom: 0 });
-      return;
-    }
 
-    if (key === "q") {
-      updateMapMode("roadmap");
-      return;
-    }
-
-    if (key === "w") {
-      updateMapMode("hybrid");
-      return;
-    }
-
-    if (key === "e") {
-      updateMapMode("satellite");
-      return;
-    }
-
-    if (key === "s") {
-      setCoverageEnabled(!state.coverageEnabled);
-      return;
-    }
-
-    if (key === "c") {
-      state.compassEnabled = !state.compassEnabled;
-      updateCompassVisibility();
-      return;
-    }
-
-    if (key === "f") {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen?.().catch(() => {});
-      } else {
-        document.exitFullscreen?.().catch(() => {});
+      const key = event.key.toLowerCase();
+      const handledKeys = ["n", "q", "w", "e", "s", "c", "f", "a", "d"];
+      if (handledKeys.includes(key)) {
+        event.preventDefault();
+        event.stopPropagation();
       }
-    }
-  });
+
+      if (key === "n") {
+        if (!state.panorama || !state.panorama.getVisible()) {
+          return;
+        }
+        state.panorama.setPov({ heading: 0, pitch: -90, zoom: 0 });
+        return;
+      }
+
+      if (key === "q") {
+        updateMapMode("roadmap");
+        return;
+      }
+
+      if (key === "w") {
+        updateMapMode("hybrid");
+        return;
+      }
+
+      if (key === "e") {
+        updateMapMode("satellite");
+        return;
+      }
+
+      if (key === "s") {
+        setCoverageEnabled(!state.coverageEnabled);
+        return;
+      }
+
+      if (key === "c") {
+        state.compassEnabled = !state.compassEnabled;
+        updateCompassVisibility();
+        return;
+      }
+
+      if (key === "f") {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen?.().catch(() => {});
+        } else {
+          document.exitFullscreen?.().catch(() => {});
+        }
+      }
+    },
+    { capture: true }
+  );
 
   bindPickerResize();
   updateMapMode(state.mapTypeId);
