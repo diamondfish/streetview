@@ -1,4 +1,6 @@
 const API_KEY_STORAGE = "googleMapsApiKey";
+const PICKER_ZOOM_CONTROL_ENABLED = false;
+const STREET_VIEW_ZOOM_CONTROL_ENABLED = false;
 
 const state = {
   apiKey: "",
@@ -160,9 +162,14 @@ const initMap = () => {
     zoom: 3,
     mapTypeId: state.mapTypeId,
     disableDefaultUI: true,
-    zoomControl: true,
+    zoomControl: PICKER_ZOOM_CONTROL_ENABLED,
     streetViewControl: false,
     fullscreenControl: false,
+    mapTypeControl: false,
+    scaleControl: false,
+    rotateControl: false,
+    clickableIcons: false,
+    keyboardShortcuts: false,
   });
 
   state.panorama = new google.maps.StreetViewPanorama(elements.streetView, {
@@ -172,7 +179,11 @@ const initMap = () => {
     motionTrackingControl: false,
     addressControl: false,
     fullscreenControl: false,
-    zoomControl: true,
+    zoomControl: STREET_VIEW_ZOOM_CONTROL_ENABLED,
+    linksControl: false,
+    panControl: false,
+    clickToGo: true,
+    keyboardShortcuts: false,
   });
 
   state.streetViewService = new google.maps.StreetViewService();

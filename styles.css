@@ -70,10 +70,10 @@ body {
   left: 0px;
   /* bottom: 24px; */
   bottom: 0px;
-  --picker-base-w: 320px;
-  --picker-base-h: 250px;
-  --picker-expanded-w: 320px;
-  --picker-expanded-h: 250px;
+  --picker-base-w: 360px;
+  --picker-base-h: 280px;
+  --picker-expanded-w: 360px;
+  --picker-expanded-h: 280px;
   width: var(--picker-base-w);
   height: var(--picker-base-h);
   aspect-ratio: calc(var(--picker-base-w) / var(--picker-base-h));
