@@ -240,13 +240,48 @@ const initMap = () => {
   });
 
   window.addEventListener("keydown", (event) => {
-    if (event.key.toLowerCase() !== "n") {
+    const target = event.target;
+    const tagName = target?.tagName?.toLowerCase();
+    if (
+      tagName === "input" ||
+      tagName === "textarea" ||
+      target?.isContentEditable
+    ) {
       return;
     }
-    if (!state.panorama || !state.panorama.getVisible()) {
+
+    const key = event.key.toLowerCase();
+
+    if (key === "n") {
+      if (!state.panorama || !state.panorama.getVisible()) {
+        return;
+      }
+      state.panorama.setPov({ heading: 0, pitch: -90, zoom: 0 });
       return;
     }
-    state.panorama.setPov({ heading: 0, pitch: -90, zoom: 0 });
+
+    if (key === "q") {
+      updateMapMode("roadmap");
+      return;
+    }
+
+    if (key === "w") {
+      updateMapMode("hybrid");
+      return;
+    }
+
+    if (key === "e") {
+      updateMapMode("satellite");
+      return;
+    }
+
+    if (key === "f") {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen?.().catch(() => {});
+      } else {
+        document.exitFullscreen?.().catch(() => {});
+      }
+    }
   });
 
   bindPickerResize();
