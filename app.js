@@ -7,6 +7,7 @@ const state = {
   marker: null,
   streetViewService: null,
   mapTypeId: "roadmap",
+  pickerResizeBound: false,
 };
 
 const elements = {
@@ -59,6 +60,40 @@ const toggleApiPanel = (isVisible) => {
   elements.apiKeyInput
     .closest(".api-key")
     .classList.toggle("is-hidden", !isVisible);
+};
+
+const bindPickerResize = () => {
+  if (state.pickerResizeBound) {
+    return;
+  }
+
+  const picker = document.querySelector(".picker");
+  if (!picker) {
+    return;
+  }
+
+  const handleResize = () => {
+    if (!state.map) {
+      return;
+    }
+    const center = state.map.getCenter();
+    google.maps.event.trigger(state.map, "resize");
+    if (center) {
+      state.map.setCenter(center);
+    }
+  };
+
+  picker.addEventListener("mouseenter", () => {
+    picker.classList.add("is-expanded");
+    requestAnimationFrame(() => setTimeout(handleResize, 220));
+  });
+
+  picker.addEventListener("mouseleave", () => {
+    picker.classList.remove("is-expanded");
+    requestAnimationFrame(() => setTimeout(handleResize, 220));
+  });
+
+  state.pickerResizeBound = true;
 };
 
 const loadGoogleMaps = (apiKey) =>
@@ -114,6 +149,7 @@ const initMap = () => {
     findNearestPanorama(event.latLng);
   });
 
+  bindPickerResize();
   updateMapMode(state.mapTypeId);
   setStatus("Click on the map to choose a location.");
 };
