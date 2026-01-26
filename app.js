@@ -239,6 +239,16 @@ const initMap = () => {
     findNearestPanorama(event.latLng);
   });
 
+  window.addEventListener("keydown", (event) => {
+    if (event.key.toLowerCase() !== "n") {
+      return;
+    }
+    if (!state.panorama || !state.panorama.getVisible()) {
+      return;
+    }
+    state.panorama.setPov({ heading: 0, pitch: -90, zoom: 0 });
+  });
+
   bindPickerResize();
   updateMapMode(state.mapTypeId);
   setStatus("Click on the map to choose a location.");
