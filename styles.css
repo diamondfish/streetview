@@ -71,12 +71,13 @@ body {
   /* bottom: 24px; */
   bottom: 0px;
   width: 320px;
-  height: 200px;
-  aspect-ratio: 12 / 7;
+  height: 250px;
+  aspect-ratio: 320 / 250;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   transition: width 220ms ease, height 220ms ease;
+  /* transition: width 0 ease, height 0 ease; */
 }
 
 .picker.is-expanded {
