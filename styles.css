@@ -143,17 +143,12 @@ body {
   position: relative;
 }
 
-.dot {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  background: currentColor;
+.map-controls-secondary .toggle-btn {
+  color: #ff8a3d;
 }
 
-.dot-orange {
-  color: #ff8a3d;
-  box-shadow: 0 0 0 2px rgba(255, 138, 61, 0.25);
+.map-controls-secondary .toggle-btn i {
+  font-size: 0.9rem;
 }
 
 .api-key {
