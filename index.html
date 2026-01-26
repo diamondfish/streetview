@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Street View Picker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div id="streetview" class="streetview"></div>
+      <div id="placeholder" class="placeholder">
+        <span>Select a location to enter Street View</span>
+      </div>
+
+      <div class="overlay picker">
+        <div class="picker-header">
+          <div class="picker-title">Location Picker</div>
+          <div class="picker-toggle" role="group" aria-label="Map mode">
+            <button id="mapMode" class="toggle-btn is-active" type="button">
+              Map
+            </button>
+            <button id="satelliteMode" class="toggle-btn" type="button">
+              Satellite
+            </button>
+          </div>
+        </div>
+        <div id="map" class="map"></div>
+        <div id="pickerStatus" class="picker-status">
+          Click on the map to choose a location.
+        </div>
+      </div>
+
+      <div class="overlay api-key">
+        <div class="api-title">Google API Key</div>
+        <div class="api-row">
+          <input
+            id="apiKeyInput"
+            class="api-input"
+            type="password"
+            placeholder="Enter API key"
+            autocomplete="off"
+          />
+          <button id="saveApiKey" class="api-button" type="button">Save</button>
+        </div>
+        <div id="apiHint" class="api-hint">
+          Key is stored locally in your browser.
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
