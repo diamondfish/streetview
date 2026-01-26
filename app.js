@@ -26,16 +26,32 @@ const elements = {
   satelliteMode: document.getElementById("satelliteMode"),
   hybridMode: document.getElementById("hybridMode"),
   coverageToggle: document.getElementById("coverageToggle"),
+  compass: document.getElementById("compass"),
+  compassNeedle: document.getElementById("compassNeedle"),
 };
 
 const showPlaceholder = () => {
   elements.streetView.classList.remove("is-active");
   elements.placeholder.style.opacity = "1";
+  if (elements.compass) {
+    elements.compass.classList.add("is-hidden");
+  }
 };
 
 const hidePlaceholder = () => {
   elements.streetView.classList.add("is-active");
   elements.placeholder.style.opacity = "0";
+  if (elements.compass) {
+    elements.compass.classList.remove("is-hidden");
+  }
+};
+
+const updateCompass = () => {
+  if (!elements.compassNeedle || !state.panorama) {
+    return;
+  }
+  const heading = state.panorama.getPov()?.heading ?? 0;
+  elements.compassNeedle.style.transform = `rotate(${-heading}deg)`;
 };
 
 const updateMapMode = (mode) => {
@@ -202,6 +218,18 @@ const initMap = () => {
     keyboardShortcuts: false,
   });
 
+  state.panorama.addListener("pov_changed", updateCompass);
+  state.panorama.addListener("visible_changed", () => {
+    if (!elements.compass) {
+      return;
+    }
+    elements.compass.classList.toggle(
+      "is-hidden",
+      !state.panorama.getVisible()
+    );
+    updateCompass();
+  });
+
   state.streetViewService = new google.maps.StreetViewService();
 
   state.map.addListener("click", (event) => {
@@ -259,6 +287,7 @@ const findNearestPanorama = (latLng) => {
       state.panorama.setPosition(panoLocation);
       state.panorama.setPov({ heading: 0, pitch: 0, zoom: 0 });
       state.panorama.setVisible(true);
+      updateCompass();
       hidePlaceholder();
       setStatus("Street View loaded.");
     }

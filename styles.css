@@ -55,6 +55,61 @@ body {
   z-index: 2;
 }
 
+.compass {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    #c8d5ea 0%,
+    #dfe8f6 45%,
+    #f4f7ff 100%
+  );
+  border: 2px solid #6fa1ff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+  z-index: 6;
+  display: grid;
+  place-items: center;
+}
+
+.compass.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.compass-needle {
+  position: absolute;
+  width: 6px;
+  height: 70%;
+  border-radius: 999px;
+  background: linear-gradient(to top, #2f7cff 0 50%, #e84b4b 50% 100%);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.35);
+  transform: rotate(0deg);
+  transform-origin: center center;
+}
+
+.compass-center {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f5f6fa;
+  border: 2px solid #1f2a3a;
+  z-index: 1;
+}
+
+.compass-north {
+  position: absolute;
+  top: 4px;
+  font-size: 0.55rem;
+  font-weight: 600;
+  color: #e84b4b;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
 .overlay {
   position: absolute;
   background: rgba(30, 31, 35, 0.96);
