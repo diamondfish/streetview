@@ -8,6 +8,8 @@ const state = {
   panorama: null,
   marker: null,
   streetViewService: null,
+  coverageLayer: null,
+  coverageEnabled: false,
   mapTypeId: "roadmap",
   pickerResizeBound: false,
 };
@@ -23,6 +25,7 @@ const elements = {
   mapMode: document.getElementById("mapMode"),
   satelliteMode: document.getElementById("satelliteMode"),
   hybridMode: document.getElementById("hybridMode"),
+  coverageToggle: document.getElementById("coverageToggle"),
 };
 
 const showPlaceholder = () => {
@@ -48,6 +51,16 @@ const updateMapMode = (mode) => {
   }
   if (elements.hybridMode) {
     elements.hybridMode.classList.toggle("is-active", mode === "hybrid");
+  }
+};
+
+const setCoverageEnabled = (isEnabled) => {
+  state.coverageEnabled = isEnabled;
+  if (state.coverageLayer && state.map) {
+    state.coverageLayer.setMap(isEnabled ? state.map : null);
+  }
+  if (elements.coverageToggle) {
+    elements.coverageToggle.classList.toggle("is-active", isEnabled);
   }
 };
 
@@ -171,6 +184,9 @@ const initMap = () => {
     clickableIcons: false,
     keyboardShortcuts: false,
   });
+
+  state.coverageLayer = new google.maps.StreetViewCoverageLayer();
+  setCoverageEnabled(false);
 
   state.panorama = new google.maps.StreetViewPanorama(elements.streetView, {
     visible: false,
@@ -310,6 +326,11 @@ const setupModeToggle = () => {
   if (elements.hybridMode) {
     elements.hybridMode.addEventListener("click", () =>
       updateMapMode("hybrid")
+    );
+  }
+  if (elements.coverageToggle) {
+    elements.coverageToggle.addEventListener("click", () =>
+      setCoverageEnabled(!state.coverageEnabled)
     );
   }
 };
