@@ -101,6 +101,14 @@ const toggleApiPanel = (isVisible) => {
     .classList.toggle("is-hidden", !isVisible);
 };
 
+const togglePicker = (isVisible) => {
+  const picker = document.querySelector(".picker");
+  if (!picker) {
+    return;
+  }
+  picker.classList.toggle("is-hidden", !isVisible);
+};
+
 const bindPickerResize = () => {
   if (state.pickerResizeBound) {
     return;
@@ -369,8 +377,10 @@ const setupApiKey = () => {
     state.apiKey = storedKey;
     elements.apiKeyInput.value = storedKey;
     toggleApiPanel(false);
+    togglePicker(true);
   } else {
     toggleApiPanel(true);
+    togglePicker(false);
   }
 
   elements.saveApiKey.addEventListener("click", async () => {
@@ -389,11 +399,13 @@ const setupApiKey = () => {
       initMap();
       elements.apiHint.textContent = "Key saved locally. Google Maps ready.";
       toggleApiPanel(false);
+      togglePicker(true);
     } catch (error) {
       elements.apiHint.textContent =
         "Could not load Google Maps. Check the key.";
       showPlaceholder();
       toggleApiPanel(true);
+      togglePicker(false);
     }
   });
 
@@ -403,16 +415,19 @@ const setupApiKey = () => {
         initMap();
         elements.apiHint.textContent = "Key saved locally. Google Maps ready.";
         toggleApiPanel(false);
+        togglePicker(true);
       })
       .catch(() => {
         elements.apiHint.textContent =
           "Could not load Google Maps. Check the key.";
         showPlaceholder();
         toggleApiPanel(true);
+        togglePicker(false);
       });
   } else {
     showPlaceholder();
     toggleApiPanel(true);
+    togglePicker(false);
   }
 };
 

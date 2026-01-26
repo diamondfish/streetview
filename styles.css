@@ -160,6 +160,10 @@ body {
   /* transition: width 0 ease, height 0 ease; */
 }
 
+.picker.is-hidden {
+  display: none;
+}
+
 .picker.is-expanded {
   width: var(--picker-expanded-w);
   height: var(--picker-expanded-h);
