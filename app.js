@@ -19,6 +19,7 @@ const elements = {
   apiHint: document.getElementById("apiHint"),
   mapMode: document.getElementById("mapMode"),
   satelliteMode: document.getElementById("satelliteMode"),
+  hybridMode: document.getElementById("hybridMode"),
 };
 
 const showPlaceholder = () => {
@@ -36,8 +37,15 @@ const updateMapMode = (mode) => {
   if (state.map) {
     state.map.setMapTypeId(mode);
   }
-  elements.mapMode.classList.toggle("is-active", mode === "roadmap");
-  elements.satelliteMode.classList.toggle("is-active", mode === "satellite");
+  if (elements.mapMode) {
+    elements.mapMode.classList.toggle("is-active", mode === "roadmap");
+  }
+  if (elements.satelliteMode) {
+    elements.satelliteMode.classList.toggle("is-active", mode === "satellite");
+  }
+  if (elements.hybridMode) {
+    elements.hybridMode.classList.toggle("is-active", mode === "hybrid");
+  }
 };
 
 const setStatus = (message) => {
@@ -217,6 +225,11 @@ const setupModeToggle = () => {
   elements.satelliteMode.addEventListener("click", () =>
     updateMapMode("satellite")
   );
+  if (elements.hybridMode) {
+    elements.hybridMode.addEventListener("click", () =>
+      updateMapMode("hybrid")
+    );
+  }
 };
 
 setupApiKey();
