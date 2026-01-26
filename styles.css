@@ -70,9 +70,13 @@ body {
   left: 0px;
   /* bottom: 24px; */
   bottom: 0px;
-  width: 320px;
-  height: 250px;
-  aspect-ratio: 320 / 250;
+  --picker-base-w: 320px;
+  --picker-base-h: 250px;
+  --picker-expanded-w: 320px;
+  --picker-expanded-h: 250px;
+  width: var(--picker-base-w);
+  height: var(--picker-base-h);
+  aspect-ratio: calc(var(--picker-base-w) / var(--picker-base-h));
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -81,10 +85,8 @@ body {
 }
 
 .picker.is-expanded {
-  height: 80vh;
-  width: auto;
-  max-width: 90vw;
-  max-height: 80vh;
+  width: var(--picker-expanded-w);
+  height: var(--picker-expanded-h);
 }
 
 .toggle-btn {

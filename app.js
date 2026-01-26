@@ -72,6 +72,26 @@ const bindPickerResize = () => {
     return;
   }
 
+  const readBaseSize = () => {
+    const rect = picker.getBoundingClientRect();
+    const width = Math.max(1, Math.round(rect.width));
+    const height = Math.max(1, Math.round(rect.height));
+    picker.style.setProperty("--picker-base-w", `${width}px`);
+    picker.style.setProperty("--picker-base-h", `${height}px`);
+    return { width, height };
+  };
+
+  const updateExpandedSize = () => {
+    const { width: baseW, height: baseH } = readBaseSize();
+    const aspect = baseW / baseH;
+    const maxHeight = window.innerHeight * 0.8;
+    const maxWidth = window.innerWidth * 0.9;
+    const expandedH = Math.min(maxHeight, maxWidth / aspect);
+    const expandedW = expandedH * aspect;
+    picker.style.setProperty("--picker-expanded-w", `${expandedW}px`);
+    picker.style.setProperty("--picker-expanded-h", `${expandedH}px`);
+  };
+
   const handleResize = () => {
     if (!state.map) {
       return;
@@ -84,12 +104,27 @@ const bindPickerResize = () => {
   };
 
   picker.addEventListener("mouseenter", () => {
+    updateExpandedSize();
     picker.classList.add("is-expanded");
     requestAnimationFrame(() => setTimeout(handleResize, 220));
   });
 
   picker.addEventListener("mouseleave", () => {
     picker.classList.remove("is-expanded");
+    requestAnimationFrame(() => setTimeout(handleResize, 220));
+  });
+
+  picker.addEventListener("transitionend", (event) => {
+    if (event.propertyName === "width" || event.propertyName === "height") {
+      handleResize();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (!picker.classList.contains("is-expanded")) {
+      return;
+    }
+    updateExpandedSize();
     requestAnimationFrame(() => setTimeout(handleResize, 220));
   });
 
