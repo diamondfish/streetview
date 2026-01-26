@@ -41,6 +41,9 @@ const updateMapMode = (mode) => {
 };
 
 const setStatus = (message) => {
+  if (!elements.pickerStatus) {
+    return;
+  }
   elements.pickerStatus.textContent = message;
 };
 

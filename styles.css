@@ -75,24 +75,6 @@ body {
   overflow: hidden;
 }
 
-.picker-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--panel-border);
-}
-
-.picker-title {
-  font-weight: 500;
-  font-size: 0.95rem;
-}
-
-.picker-toggle {
-  display: inline-flex;
-  gap: 6px;
-}
-
 .toggle-btn {
   appearance: none;
   border: 1px solid transparent;
@@ -103,6 +85,7 @@ body {
   font-size: 0.82rem;
   cursor: pointer;
   transition: all 120ms ease;
+  backdrop-filter: blur(6px);
 }
 
 .toggle-btn:hover {
@@ -120,11 +103,17 @@ body {
   flex: 1;
 }
 
-.picker-status {
-  padding: 10px 14px 12px;
-  font-size: 0.78rem;
-  color: var(--muted);
-  border-top: 1px solid var(--panel-border);
+.map-controls {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: inline-flex;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 12px;
+  background: rgba(24, 25, 30, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
 .api-key {
