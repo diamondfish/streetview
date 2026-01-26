@@ -21,30 +21,32 @@
 
       <div class="overlay picker">
         <div id="map" class="map"></div>
-        <div class="map-controls" role="group" aria-label="Map mode">
-          <button id="mapMode" class="toggle-btn is-active" type="button">
-            Map
-          </button>
-          <button id="hybridMode" class="toggle-btn" type="button">
-            Hybrid
-          </button>
-          <button id="satelliteMode" class="toggle-btn" type="button">
-            Satellite
-          </button>
-        </div>
-        <div
-          class="map-controls map-controls-secondary"
-          role="group"
-          aria-label="Street View coverage"
-        >
-          <button
-            id="coverageToggle"
-            class="toggle-btn"
-            type="button"
-            title="Street View coverage"
+        <div class="map-controls-row">
+          <div class="map-controls" role="group" aria-label="Map mode">
+            <button id="mapMode" class="toggle-btn is-active" type="button">
+              Map
+            </button>
+            <button id="hybridMode" class="toggle-btn" type="button">
+              Hybrid
+            </button>
+            <button id="satelliteMode" class="toggle-btn" type="button">
+              Satellite
+            </button>
+          </div>
+          <div
+            class="map-controls map-controls-secondary"
+            role="group"
+            aria-label="Street View coverage"
           >
-            <span class="dot dot-orange" aria-hidden="true"></span>
-          </button>
+            <button
+              id="coverageToggle"
+              class="toggle-btn"
+              type="button"
+              title="Street View coverage"
+            >
+              <span class="dot dot-orange" aria-hidden="true"></span>
+            </button>
+          </div>
         </div>
       </div>
 

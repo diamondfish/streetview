@@ -118,11 +118,7 @@ body {
 }
 
 .map-controls {
-  position: absolute;
-  /* top: 14px; */
-  /* left: 14px; */
-  top: 6px;
-  left: 6px;
+  position: relative;
   display: inline-flex;
   gap: 6px;
   padding: 6px;
@@ -132,10 +128,19 @@ body {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
-.map-controls-secondary {
+.map-controls-row {
+  position: absolute;
   top: 6px;
-  left: auto;
+  left: 6px;
   right: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+}
+
+.map-controls-secondary {
+  position: relative;
 }
 
 .dot {
