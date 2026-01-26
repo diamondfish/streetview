@@ -197,6 +197,7 @@ const initMap = () => {
   state.map = new google.maps.Map(elements.map, {
     center: { lat: 48.8584, lng: 2.2945 },
     zoom: 3,
+    minZoom: 3,
     mapTypeId: state.mapTypeId,
     disableDefaultUI: true,
     zoomControl: PICKER_ZOOM_CONTROL_ENABLED,

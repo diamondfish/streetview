@@ -193,6 +193,11 @@ body {
   flex: 1;
 }
 
+.map-controls * {
+  outline: none;
+  user-select: none;
+}
+
 .map-controls {
   position: relative;
   display: inline-flex;
@@ -219,9 +224,9 @@ body {
   position: relative;
 }
 
-.map-controls-secondary .toggle-btn {
+/* .map-controls-secondary .toggle-btn {
   color: #ff8a3d;
-}
+} */
 
 .map-controls-secondary .toggle-btn i {
   font-size: 0.9rem;
