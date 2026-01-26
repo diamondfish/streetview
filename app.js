@@ -119,7 +119,7 @@ const findNearestPanorama = (latLng) => {
   state.streetViewService.getPanorama(
     {
       location: latLng,
-      radius: 80,
+      radius: 1000, // 1 km search radius for closest location
       source: google.maps.StreetViewSource.DEFAULT,
     },
     (data, status) => {

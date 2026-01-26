@@ -58,18 +58,20 @@ body {
 .overlay {
   position: absolute;
   background: rgba(30, 31, 35, 0.96);
-  border: 1px solid var(--panel-border);
-  border-radius: 12px;
+  border: 0px solid var(--panel-border);
+  border-radius: 12px 12px 12px 0;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(12px);
   z-index: 5;
 }
 
 .picker {
-  left: 24px;
-  bottom: 24px;
+  /* left: 24px; */
+  left: 0px;
+  /* bottom: 24px; */
+  bottom: 0px;
   width: 600px;
-  height: 600px;
+  height: 450px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -105,13 +107,15 @@ body {
 
 .map-controls {
   position: absolute;
-  top: 14px;
-  left: 14px;
+  /* top: 14px; */
+  /* left: 14px; */
+  top: 6px;
+  left: 6px;
   display: inline-flex;
   gap: 6px;
   padding: 6px;
   border-radius: 12px;
-  background: rgba(24, 25, 30, 0.7);
+  background: rgba(24, 25, 30, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
