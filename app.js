@@ -10,6 +10,7 @@ const state = {
   streetViewService: null,
   coverageLayer: null,
   coverageEnabled: false,
+  compassEnabled: true,
   mapTypeId: "roadmap",
   pickerResizeBound: false,
 };
@@ -33,17 +34,13 @@ const elements = {
 const showPlaceholder = () => {
   elements.streetView.classList.remove("is-active");
   elements.placeholder.style.opacity = "1";
-  if (elements.compass) {
-    elements.compass.classList.add("is-hidden");
-  }
+  updateCompassVisibility();
 };
 
 const hidePlaceholder = () => {
   elements.streetView.classList.add("is-active");
   elements.placeholder.style.opacity = "0";
-  if (elements.compass) {
-    elements.compass.classList.remove("is-hidden");
-  }
+  updateCompassVisibility();
 };
 
 const updateCompass = () => {
@@ -52,6 +49,17 @@ const updateCompass = () => {
   }
   const heading = state.panorama.getPov()?.heading ?? 0;
   elements.compassNeedle.style.transform = `rotate(${-heading}deg)`;
+};
+
+const updateCompassVisibility = () => {
+  if (!elements.compass) {
+    return;
+  }
+  const isVisible = state.panorama?.getVisible?.() ?? false;
+  elements.compass.classList.toggle(
+    "is-hidden",
+    !state.compassEnabled || !isVisible
+  );
 };
 
 const updateMapMode = (mode) => {
@@ -220,13 +228,7 @@ const initMap = () => {
 
   state.panorama.addListener("pov_changed", updateCompass);
   state.panorama.addListener("visible_changed", () => {
-    if (!elements.compass) {
-      return;
-    }
-    elements.compass.classList.toggle(
-      "is-hidden",
-      !state.panorama.getVisible()
-    );
+    updateCompassVisibility();
     updateCompass();
   });
 
@@ -272,6 +274,17 @@ const initMap = () => {
 
     if (key === "e") {
       updateMapMode("satellite");
+      return;
+    }
+
+    if (key === "s") {
+      setCoverageEnabled(!state.coverageEnabled);
+      return;
+    }
+
+    if (key === "c") {
+      state.compassEnabled = !state.compassEnabled;
+      updateCompassVisibility();
       return;
     }
 
@@ -333,6 +346,7 @@ const findNearestPanorama = (latLng) => {
       state.panorama.setPov({ heading: 0, pitch: 0, zoom: 0 });
       state.panorama.setVisible(true);
       updateCompass();
+      updateCompassVisibility();
       hidePlaceholder();
       setStatus("Street View loaded.");
     }
