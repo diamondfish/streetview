@@ -160,6 +160,9 @@ const clearStoredKey = () => {
   if (elements.apiKeyInput) {
     elements.apiKeyInput.value = "";
   }
+  if (elements.menuDeleteKey) {
+    elements.menuDeleteKey.disabled = true;
+  }
   elements.apiHint.textContent = "The key is stored locally in your browser.";
   toggleApiPanel(true);
   togglePicker(false);
@@ -374,6 +377,12 @@ const initMap = () => {
     { capture: true }
   );
 
+  bindPickerResize();
+  updateMapMode(state.mapTypeId);
+  setStatus("Click on the map to choose a location.");
+};
+
+const setupSettingsMenu = () => {
   elements.settingsButton?.addEventListener("click", (event) => {
     event.stopPropagation();
     if (elements.settingsMenu?.classList.contains("is-hidden")) {
@@ -436,10 +445,6 @@ const initMap = () => {
     }
     closeMenu();
   });
-
-  bindPickerResize();
-  updateMapMode(state.mapTypeId);
-  setStatus("Click on the map to choose a location.");
 };
 
 const findNearestPanorama = (latLng) => {
@@ -498,9 +503,15 @@ const setupApiKey = () => {
   if (storedKey) {
     state.apiKey = storedKey;
     elements.apiKeyInput.value = storedKey;
+    if (elements.menuDeleteKey) {
+      elements.menuDeleteKey.disabled = false;
+    }
     toggleApiPanel(false);
     togglePicker(true);
   } else {
+    if (elements.menuDeleteKey) {
+      elements.menuDeleteKey.disabled = true;
+    }
     toggleApiPanel(true);
     togglePicker(false);
   }
@@ -522,6 +533,9 @@ const setupApiKey = () => {
       elements.apiHint.textContent = "Key saved locally. Google Maps ready.";
       state.compassEnabled = true;
       updateCompassVisibility();
+      if (elements.menuDeleteKey) {
+        elements.menuDeleteKey.disabled = false;
+      }
       toggleApiPanel(false);
       togglePicker(true);
     } catch (error) {
@@ -540,6 +554,9 @@ const setupApiKey = () => {
         elements.apiHint.textContent = "Key saved locally. Google Maps ready.";
         state.compassEnabled = true;
         updateCompassVisibility();
+        if (elements.menuDeleteKey) {
+          elements.menuDeleteKey.disabled = false;
+        }
         toggleApiPanel(false);
         togglePicker(true);
       })
@@ -574,5 +591,6 @@ const setupModeToggle = () => {
   }
 };
 
+setupSettingsMenu();
 setupApiKey();
 setupModeToggle();

@@ -142,12 +142,25 @@ body {
   width: 38px;
   height: 38px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 0px solid rgba(255, 255, 255, 0.08);
   background: rgba(24, 25, 30, 0.8);
   color: rgba(255, 255, 255, 0.85);
   cursor: pointer;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  /* box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35); */
   z-index: 7;
+  padding: 6px 10px;
+  font-size: 1.2rem;
+
+  /* appearance: none; */
+  /* border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 120ms ease;
+  backdrop-filter: blur(6px); */
 }
 
 .settings-button:hover {
@@ -189,6 +202,11 @@ body {
   text-align: left;
 }
 
+.menu-item:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 .menu-item:hover {
   background: rgba(255, 255, 255, 0.06);
 }
@@ -227,7 +245,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
+  margin-bottom: 14px;
 }
 
 .modal-title {
