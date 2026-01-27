@@ -72,12 +72,14 @@ body {
     #dfe8f6 45%,
     #f4f7ff 100%
   ); */
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(225, 225, 255, 0.4);
   /* border: 2px solid #6fa1ff; */
   /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35); */
+  border: 10px solid rgba(255, 255, 255, 0.2);
   z-index: 6;
   display: grid;
   place-items: center;
+  backdrop-filter: blur(5px);
 }
 
 .compass.is-hidden {
@@ -137,30 +139,19 @@ body {
 
 .settings-button {
   position: absolute;
-  top: 18px;
-  right: 18px;
+  top: 14px;
+  right: 14px;
   width: 38px;
   height: 38px;
   border-radius: 12px;
   border: 0px solid rgba(255, 255, 255, 0.08);
-  background: rgba(24, 25, 30, 0.8);
+  background: rgba(24, 25, 30, 0.6);
   color: rgba(255, 255, 255, 0.85);
   cursor: pointer;
   /* box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35); */
   z-index: 7;
   padding: 6px 10px;
   font-size: 1.2rem;
-
-  /* appearance: none; */
-  /* border: 1px solid transparent;
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--muted);
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-size: 0.82rem;
-  cursor: pointer;
-  transition: all 120ms ease;
-  backdrop-filter: blur(6px); */
 }
 
 .settings-button:hover {
@@ -172,10 +163,10 @@ body {
   top: 64px;
   right: 18px;
   min-width: 220px;
-  background: rgba(30, 31, 35, 0.98);
+  background: rgba(30, 31, 35, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
   padding: 6px;
   z-index: 7;
   display: flex;
@@ -307,8 +298,10 @@ body {
   margin-right: 8px;
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.1);
-  font-weight: 600;
-  font-size: 0.75rem;
+  font-weight: 400;
+  font-size: 1rem;
+  font-family: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
   color: #fff;
 }
 
