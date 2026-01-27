@@ -29,6 +29,20 @@ const elements = {
   coverageToggle: document.getElementById("coverageToggle"),
   compass: document.getElementById("compass"),
   compassNeedle: document.getElementById("compassNeedle"),
+  settingsButton: document.getElementById("settingsButton"),
+  settingsMenu: document.getElementById("settingsMenu"),
+  menuDeleteKey: document.getElementById("menuDeleteKey"),
+  menuAbout: document.getElementById("menuAbout"),
+  menuShortcuts: document.getElementById("menuShortcuts"),
+  modalBackdrop: document.getElementById("modalBackdrop"),
+  aboutModal: document.getElementById("aboutModal"),
+  shortcutsModal: document.getElementById("shortcutsModal"),
+  confirmModal: document.getElementById("confirmModal"),
+  closeAbout: document.getElementById("closeAbout"),
+  closeShortcuts: document.getElementById("closeShortcuts"),
+  closeConfirm: document.getElementById("closeConfirm"),
+  cancelDelete: document.getElementById("cancelDelete"),
+  confirmDelete: document.getElementById("confirmDelete"),
 };
 
 const showPlaceholder = () => {
@@ -107,6 +121,49 @@ const togglePicker = (isVisible) => {
     return;
   }
   picker.classList.toggle("is-hidden", !isVisible);
+};
+
+const openMenu = () => {
+  elements.settingsMenu?.classList.remove("is-hidden");
+};
+
+const closeMenu = () => {
+  elements.settingsMenu?.classList.add("is-hidden");
+};
+
+const openModal = (modal) => {
+  if (!modal || !elements.modalBackdrop) {
+    return;
+  }
+  elements.modalBackdrop.classList.remove("is-hidden");
+  modal.classList.remove("is-hidden");
+};
+
+const closeModal = (modal) => {
+  if (!modal || !elements.modalBackdrop) {
+    return;
+  }
+  modal.classList.add("is-hidden");
+  const anyOpen = [
+    elements.aboutModal,
+    elements.shortcutsModal,
+    elements.confirmModal,
+  ].some((item) => item && !item.classList.contains("is-hidden"));
+  if (!anyOpen) {
+    elements.modalBackdrop.classList.add("is-hidden");
+  }
+};
+
+const clearStoredKey = () => {
+  localStorage.removeItem(API_KEY_STORAGE);
+  state.apiKey = "";
+  if (elements.apiKeyInput) {
+    elements.apiKeyInput.value = "";
+  }
+  elements.apiHint.textContent = "The key is stored locally in your browser.";
+  toggleApiPanel(true);
+  togglePicker(false);
+  showPlaceholder();
 };
 
 const bindPickerResize = () => {
@@ -314,6 +371,66 @@ const initMap = () => {
     },
     { capture: true }
   );
+
+  elements.settingsButton?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    if (elements.settingsMenu?.classList.contains("is-hidden")) {
+      openMenu();
+    } else {
+      closeMenu();
+    }
+  });
+
+  elements.menuDeleteKey?.addEventListener("click", () => {
+    closeMenu();
+    openModal(elements.confirmModal);
+  });
+
+  elements.menuAbout?.addEventListener("click", () => {
+    closeMenu();
+    openModal(elements.aboutModal);
+  });
+
+  elements.menuShortcuts?.addEventListener("click", () => {
+    closeMenu();
+    openModal(elements.shortcutsModal);
+  });
+
+  elements.closeAbout?.addEventListener("click", () =>
+    closeModal(elements.aboutModal)
+  );
+  elements.closeShortcuts?.addEventListener("click", () =>
+    closeModal(elements.shortcutsModal)
+  );
+  elements.closeConfirm?.addEventListener("click", () =>
+    closeModal(elements.confirmModal)
+  );
+  elements.cancelDelete?.addEventListener("click", () =>
+    closeModal(elements.confirmModal)
+  );
+  elements.confirmDelete?.addEventListener("click", () => {
+    clearStoredKey();
+    closeModal(elements.confirmModal);
+  });
+
+  elements.modalBackdrop?.addEventListener("click", () => {
+    closeModal(elements.aboutModal);
+    closeModal(elements.shortcutsModal);
+    closeModal(elements.confirmModal);
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!elements.settingsMenu || elements.settingsMenu.classList.contains("is-hidden")) {
+      return;
+    }
+    if (
+      elements.settingsMenu.contains(event.target) ||
+      elements.settingsButton?.contains(event.target)
+    ) {
+      return;
+    }
+    closeMenu();
+  });
 
   bindPickerResize();
   updateMapMode(state.mapTypeId);
