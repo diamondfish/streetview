@@ -163,6 +163,8 @@ const clearStoredKey = () => {
   elements.apiHint.textContent = "The key is stored locally in your browser.";
   toggleApiPanel(true);
   togglePicker(false);
+  state.compassEnabled = false;
+  updateCompassVisibility();
   showPlaceholder();
 };
 
@@ -420,7 +422,10 @@ const initMap = () => {
   });
 
   document.addEventListener("click", (event) => {
-    if (!elements.settingsMenu || elements.settingsMenu.classList.contains("is-hidden")) {
+    if (
+      !elements.settingsMenu ||
+      elements.settingsMenu.classList.contains("is-hidden")
+    ) {
       return;
     }
     if (
@@ -515,6 +520,8 @@ const setupApiKey = () => {
       await loadGoogleMaps(key);
       initMap();
       elements.apiHint.textContent = "Key saved locally. Google Maps ready.";
+      state.compassEnabled = true;
+      updateCompassVisibility();
       toggleApiPanel(false);
       togglePicker(true);
     } catch (error) {
@@ -531,6 +538,8 @@ const setupApiKey = () => {
       .then(() => {
         initMap();
         elements.apiHint.textContent = "Key saved locally. Google Maps ready.";
+        state.compassEnabled = true;
+        updateCompassVisibility();
         toggleApiPanel(false);
         togglePicker(true);
       })
