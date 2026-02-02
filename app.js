@@ -461,8 +461,8 @@ const findNearestPanorama = (latLng) => {
     },
     (data, status) => {
       if (status !== google.maps.StreetViewStatus.OK || !data) {
-        setStatus("No Street View found nearby. Try another spot.");
-        showPlaceholder();
+        // setStatus("No Street View found nearby. Try another spot.");
+        // showPlaceholder();
         return;
       }
 
